@@ -163,6 +163,19 @@
 	
 }
 
+- (BOOL)contextSourceEnabled:(NSString *)contextSource {
+
+	// Check if context source is in the dictionary
+	if ([contextSources objectForKey:contextSource] != nil)
+
+		// Context source is enabled
+		return YES;
+	else
+		// Context source is disabled
+		return NO;
+
+}
+
 - (BOOL)enableContextSource:(NSString *)contextSource {
 
 	// If context source not already available

@@ -191,6 +191,19 @@
 - (NSArray *)getContextSources;
 
 /*
+ * This method checks if a given context source is enabled.
+ *
+ * Parameters:
+ *   contextSource: An NSString containing the name of the context source
+ *
+ * Returns:
+ *   YES if the context source is enabled
+ *   NO if the context source is disabled
+ *
+ */
+- (BOOL)contextSourceEnabled:(NSString *)contextSource;
+
+/*
  * This method enables a given context sources.
  *
  * Parameters:
