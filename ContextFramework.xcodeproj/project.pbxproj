@@ -358,9 +358,9 @@
 		DC9ED42C1105FD2C00217F76 /* ContextSources */ = {
 			isa = PBXGroup;
 			children = (
+				DC9ED42F1105FD2C00217F76 /* IContextSource.h */,
 				DC9ED42D1105FD2C00217F76 /* ContextSource.h */,
 				DC9ED42E1105FD2C00217F76 /* ContextSource.m */,
-				DC9ED42F1105FD2C00217F76 /* IContextSource.h */,
 				DC9ED4301105FD2C00217F76 /* LocationContextSource.h */,
 				DC9ED4311105FD2C00217F76 /* LocationContextSource.m */,
 				DC9ED4321105FD2C00217F76 /* OrientationContextSource.h */,

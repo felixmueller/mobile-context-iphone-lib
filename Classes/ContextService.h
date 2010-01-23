@@ -191,6 +191,19 @@
 - (NSArray *)getContextSources;
 
 /*
+ * This method requests all context attributes the context source can deliver.
+ *
+ * Parameters:
+ *   source: An NSString containing the context source name
+ *
+ * Returns:
+ *   An NSArray if NSString with the names of the context source attributes
+ *   nil if no context attributes were found or an error did occur
+ *
+ */
+- (NSArray *)getContextSourceAttributes:(NSString *)source;
+
+/*
  * This method checks if a given context source is enabled.
  *
  * Parameters:

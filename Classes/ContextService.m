@@ -23,7 +23,7 @@
     if (self != nil) {
 				
 		// Names of all context sources
-		NSArray *contextSourceNames = [NSArray arrayWithObjects:@"Source:Location", @"Source:Time", @"Source:Orientation", @"Source:Network", @"Source:Device", @"Source:Weather", @"Source:User", nil];
+		NSArray *contextSourceNames = [NSArray arrayWithObjects:@"Location", @"Time", @"Orientation", @"Network", @"Device", @"Weather", @"User", nil];
 		
 		// Classes of all context sourves
 		NSArray *contextSourceClasses = [NSArray arrayWithObjects: @"LocationContextSource", @"TimeContextSource", @"OrientationContextSource", @"NetworkContextSource", @"DeviceContextSourve", @"WeatherContextServer", @"UserContextSource", nil];
@@ -81,11 +81,67 @@
 }
 
 - (NSDictionary *)getContextsForUser:(NSString *)userName {
+	
+	
+	// Get all context source attributes containing their current values
+	NSDictionary *contextAttributes = [self getContextSourceAttributes];
 
+	// Get all context source attribute keys
+	NSArray *attributeKeys = [NSArray arrayWithArray:[contextAttributes allKeys]];
+	
+	// Prepare the attribute parameter string with format {'attribute'=>'value','attribute'=>'value', ...}
+	NSString *attributeParameterString = [[NSString alloc] init];
+	
+	// If there are attributes
+	if ([attributeKeys count] > 0) {
+		
+		// Add the opening bracket
+		attributeParameterString = [attributeParameterString stringByAppendingString:@"{"];
+		
+		// Iterate all context attributes
+		for(NSString *attributeKey in attributeKeys) {
+			
+			// Add the opening apostrophe
+			attributeParameterString = [attributeParameterString stringByAppendingString:@"'"];
+			
+			// Add the attribute name
+			attributeParameterString = [attributeParameterString stringByAppendingString:attributeKey];
+			
+			// Add the closing apostrophe, arrow and opening apostrophe
+			attributeParameterString = [attributeParameterString stringByAppendingString:@"'=>'"];
+			
+			// Add the attribute value
+			attributeParameterString = [attributeParameterString stringByAppendingString:[[contextAttributes objectForKey:attributeKey] contextValue]];
+			
+			// Add the closing apostrophe and comma
+			attributeParameterString = [attributeParameterString stringByAppendingString:@"',"];
+			
+		}
+		
+		// Remove the last comma
+		attributeParameterString = [attributeParameterString substringToIndex:[attributeParameterString length] - 1];
+		
+		// Add the closing bracket
+		attributeParameterString = [attributeParameterString stringByAppendingString:@"}"];
+		
+	}
+	
+	// Prepare the query parameter string and fill it with "user"
+	NSMutableArray *queryKeys = [NSMutableArray arrayWithObjects:@"user", nil];
+	
+	// If there are attributes add "attributes"
+	if ([attributeKeys count] > 0)
+		[queryKeys addObject:@"attributes"];
+	
+	// Prepare the query parameter value string and fill it with the user name
+	NSMutableArray *queryValues = [NSMutableArray arrayWithObjects:userName, nil];
+	
+	// If there are attributes add the attribute string
+	if ([attributeKeys count] > 0)
+		[queryValues addObject:attributeParameterString];
+	
 	// Create query parameter dictionary
-	NSArray *queryKeys = [NSArray arrayWithObjects:@"user", nil];
-	NSArray *queryObjects = [NSArray arrayWithObjects:userName, nil];
-	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:queryObjects forKeys:queryKeys];
+	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:queryValues forKeys:queryKeys];
 	
 	// Load contexts from remote
 	NSArray *contextResults = [NSMutableArray arrayWithArray:[Context findAllRemoteWithParams:params]];
@@ -102,7 +158,7 @@
 	
 	// Return the context dictionary
 	return contextDictionary;
-	
+
 }
 
 - (NSDictionary *)getContextsForUser:(NSString *)userName withType:(NSString *)contextType {
@@ -150,6 +206,13 @@
 	// Return all context source names, the keys of the context source dictionary
 	return [contextSourcePool allKeys];
 	
+}
+
+- (NSArray *)getContextSourceAttributes:(NSString *)source {
+
+	// Return the context sourve attributes of the requested source
+	return [[contextSources objectForKey:source] getContextAttributes];
+
 }
 
 - (BOOL)contextSourceEnabled:(NSString *)contextSource {
@@ -232,7 +295,7 @@
 		ContextSource *contextSource = [contextSources objectForKey:contextSourceKey];
 		
 		// Get all context attributes
-		NSDictionary *contextAttributes = [contextSource gatherContexts];
+		NSDictionary *contextAttributes = [contextSource getContextAttributeValues];
 		NSArray *contextAttributeKeys = [NSArray arrayWithArray:[contextAttributes allKeys]];
 
 		// Iterate all context attributes
