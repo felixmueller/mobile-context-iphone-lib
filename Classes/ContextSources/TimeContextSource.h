@@ -16,28 +16,20 @@
 
 @interface TimeContextSource : ContextSource <IContextSource> {
 
-	NSDate *date;
 	NSCalendar *calendar;
-	NSDateComponents *hour;
-	NSDateComponents *minute;
-	NSDateComponents *second;
-	NSDateComponents *year;
-	NSDateComponents *month;
-	NSDateComponents *day;
+	NSDate *date;
+	NSString *dateString;
+	NSString *timeString;
 	NSDateComponents *week;
 	NSDateComponents *weekday;
 	NSTimeZone *timezone;
 	
 }
 
-@property (nonatomic, retain) NSDate *date;
 @property (nonatomic, retain) NSCalendar *calendar;
-@property (nonatomic, retain) NSDateComponents *hour;
-@property (nonatomic, retain) NSDateComponents *minute;
-@property (nonatomic, retain) NSDateComponents *second;
-@property (nonatomic, retain) NSDateComponents *year;
-@property (nonatomic, retain) NSDateComponents *month;
-@property (nonatomic, retain) NSDateComponents *day;
+@property (nonatomic, retain) NSDate *date;
+@property (nonatomic, retain) NSString *dateString;
+@property (nonatomic, retain) NSString *timeString;
 @property (nonatomic, retain) NSDateComponents *week;
 @property (nonatomic, retain) NSDateComponents *weekday;
 @property (nonatomic, retain) NSTimeZone *timezone;

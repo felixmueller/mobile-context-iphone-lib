@@ -16,113 +16,86 @@
 
 @synthesize calendar;
 @synthesize date;
-@synthesize hour;
-@synthesize minute;
-@synthesize second;
-@synthesize year;
-@synthesize month;
-@synthesize day;
+@synthesize dateString;
+@synthesize timeString;
 @synthesize week;
 @synthesize weekday;
 @synthesize timezone;
 
-- (NSMutableDictionary *)gatherContexts {
+- (id)init {
 	
-	NSLog(@"TimeContextServer::gatherContexts called");
+    self = [super init];
+    if (self != nil) {
+		
+		// Init attributes
+		NSArray *attributes = [NSArray arrayWithObjects:@"date", @"time", @"week", @"weekday", @"timezone", nil];
+		self.contextAttributes = [NSMutableDictionary dictionaryWithObjects:attributes forKeys:attributes];
+    }
+    return self;
+	
+}
+
+
+- (NSArray *)getContextAttributes {
+	
+	return super.getContextAttributes;
+	
+}
+
+- (ContextAttribute *)getContextAttributeValue:(NSString *)attribute {
+	
+	return [super getContextAttributeValue:attribute];
+	
+}
+
+- (NSMutableDictionary *)getContextAttributeValues {
 
 	ContextAttribute *contextAttribute;
 	
-	// Gather the time and date values
-	
+	// Gather, set up and format the time source values
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]  autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+	NSDateFormatter *timeFormatter = [[[NSDateFormatter alloc] init]  autorelease];
+	[timeFormatter setDateStyle:NSDateFormatterNoStyle];
+	[timeFormatter setTimeStyle:NSDateFormatterMediumStyle];
 	calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 	date = [NSDate date];
-	hour = [calendar components:NSHourCalendarUnit fromDate:date];
-	minute = [calendar components:NSMinuteCalendarUnit fromDate:date];
-	second = [calendar components:NSSecondCalendarUnit fromDate:date];
-	year = [calendar components:NSYearCalendarUnit fromDate:date];
-	month = [calendar components:NSMonthCalendarUnit fromDate:date];
-	day = [calendar components:NSDayCalendarUnit fromDate:date];
+	dateString = [dateFormatter stringFromDate:date];
+	timeString = [timeFormatter stringFromDate:date];
 	week = [calendar components:NSWeekCalendarUnit fromDate:date];
 	weekday = [calendar components:NSWeekdayCalendarUnit fromDate:date];
 	timezone = [NSTimeZone systemTimeZone];
 	
-	// Context:Time:Hour
-	
+	// Attribute: date
+
 	contextAttribute = [[ContextAttribute alloc] init];	
 	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Time:Hour"];
+	[contextAttribute setContextType:@"date"];
 	[contextAttribute setContextSource:SOURCE_DEVICE];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextValue:[NSString stringWithFormat:@"%d", [hour hour]]];
+	[contextAttribute setContextValue:dateString];
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 
-	// Context:Time:Minute
+	// Attribute: time
 	
 	contextAttribute = [[ContextAttribute alloc] init];	
 	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Time:Minute"];
+	[contextAttribute setContextType:@"time"];
 	[contextAttribute setContextSource:SOURCE_DEVICE];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextValue:[NSString stringWithFormat:@"%d", [minute minute]]];
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
-
-	// Context:Time:Second
-	
-	contextAttribute = [[ContextAttribute alloc] init];	
-	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Time:Second"];
-	[contextAttribute setContextSource:SOURCE_DEVICE];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextValue:[NSString stringWithFormat:@"%d", [second second]]];
+	[contextAttribute setContextValue:timeString];
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 	
-	// Context:Time:Year
+	// Attribute: week
 	
 	contextAttribute = [[ContextAttribute alloc] init];	
 	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Time:Year"];
-	[contextAttribute setContextSource:SOURCE_DEVICE];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextValue:[NSString stringWithFormat:@"%d", [year year]]];
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
-	
-	// Context:Time:Month
-	
-	contextAttribute = [[ContextAttribute alloc] init];	
-	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Time:Month"];
-	[contextAttribute setContextSource:SOURCE_DEVICE];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextValue:[NSString stringWithFormat:@"%d", [month month]]];
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
-
-	// Context:Time:Day
-	
-	contextAttribute = [[ContextAttribute alloc] init];	
-	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Time:Day"];
-	[contextAttribute setContextSource:SOURCE_DEVICE];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextValue:[NSString stringWithFormat:@"%d", [day day]]];
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
-
-	// Context:Time:Week
-	
-	contextAttribute = [[ContextAttribute alloc] init];	
-	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Time:Week"];
+	[contextAttribute setContextType:@"week"];
 	[contextAttribute setContextSource:SOURCE_DEVICE];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
@@ -130,23 +103,23 @@
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 
-	// Context:Time:Weekday
+	// Attribute: weekday
 	
 	contextAttribute = [[ContextAttribute alloc] init];	
 	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Time:Weekday"];
+	[contextAttribute setContextType:@"weekday"];
 	[contextAttribute setContextSource:SOURCE_DEVICE];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextValue:[NSString stringWithFormat:@"%d", [weekday weekday]]];
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
-	
-	// Context:Time:Timezone
+
+	// Attribute: timezone
 	
 	contextAttribute = [[ContextAttribute alloc] init];	
 	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Time:Timezone"];
+	[contextAttribute setContextType:@"timezone"];
 	[contextAttribute setContextSource:SOURCE_DEVICE];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
@@ -154,7 +127,7 @@
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 	
-	return super.gatherContexts;
+	return super.getContextAttributeValues;
 
 }
 
