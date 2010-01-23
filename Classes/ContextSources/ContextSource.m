@@ -18,6 +18,7 @@
 
 - (id)init {
 	
+	// Init the dictionary for context attribute storage
     self = [super init];
     if (self != nil) {
         self.contextAttributes = [[NSMutableDictionary alloc] init];
@@ -26,8 +27,23 @@
 	
 }
 
-- (NSMutableDictionary *)gatherContexts {
+- (ContextAttribute *)getContextAttributeValue:(NSString *)attribute {
+
+	// Return the context attribute value for the given attribute
+	return [contextAttributes objectForKey:attribute];
+
+}
+
+- (NSArray *)getContextAttributes {
+
+	// Return all context attribute names, the keys of the context attribute dictionary
+	return [contextAttributes allKeys];
+
+}
+
+- (NSMutableDictionary *)getContextAttributeValues {
 	
+	// Return all current context attribute objects
 	return self.contextAttributes;
 	
 }

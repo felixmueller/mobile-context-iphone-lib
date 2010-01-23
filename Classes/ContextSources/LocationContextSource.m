@@ -24,9 +24,16 @@
 	
     self = [super init];
     if (self != nil) {
-        self.locationManager = [[[CLLocationManager alloc] init] autorelease];
+        
+		// Init location manager
+		self.locationManager = [[[CLLocationManager alloc] init] autorelease];
         self.locationManager.delegate = self;
 		[self.locationManager startUpdatingLocation];
+		
+		// Init attributes
+		NSArray *attributes = [NSArray arrayWithObjects:@"latitude", @"longitude", @"altitude", @"speed", nil];
+		self.contextAttributes = [NSMutableDictionary dictionaryWithObjects:attributes forKeys:attributes];
+		
     }
     return self;
 	
@@ -44,9 +51,19 @@
 	
 }
 
-- (NSDictionary *)gatherContexts {
+- (NSArray *)getContextAttributes {
 	
-	NSLog(@"LocationContextServer::gatherContexts called");
+	return super.getContextAttributes;
+	
+}
+
+- (ContextAttribute *)getContextAttributeValue:(NSString *)attribute {
+	
+	return [super getContextAttributeValue:attribute];
+	
+}
+
+- (NSDictionary *)getContextAttributeValues {
 	
 	ContextAttribute *contextAttribute;
 
@@ -57,11 +74,11 @@
 	altitude = [NSString stringWithFormat:@"%f", self.locationManager.location.altitude];
 	speed = [NSString stringWithFormat:@"%f", self.locationManager.location.speed];
 	
-	// Context:Location:Position:Latitude
+	// Attribute: latitude
 	
 	contextAttribute = [[ContextAttribute alloc] init];
 	[contextAttribute setContextTimeStamp:[self.locationManager.location timestamp]];
-	[contextAttribute setContextType:@"Context:Location:Position:Latitude"];
+	[contextAttribute setContextType:@"latitude"];
 	[contextAttribute setContextSource:SOURCE_SENSED];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:(self.locationManager.location.verticalAccuracy / 100)]];
@@ -69,11 +86,11 @@
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 	
-	// Context:Location:Position:Longitude
+	// Attribute: longitude
 	
 	contextAttribute = [[ContextAttribute alloc] init];
 	[contextAttribute setContextTimeStamp:[self.locationManager.location timestamp]];
-	[contextAttribute setContextType:@"Context:Location:Position:Longitude"];
+	[contextAttribute setContextType:@"longitude"];
 	[contextAttribute setContextSource:SOURCE_SENSED];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:(self.locationManager.location.horizontalAccuracy / 100)]];
@@ -81,11 +98,11 @@
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 	
-	// Context:Location:Position:Altitude
+	// Attribute: altitude
 	
 	contextAttribute = [[ContextAttribute alloc] init];
 	[contextAttribute setContextTimeStamp:[self.locationManager.location timestamp]];
-	[contextAttribute setContextType:@"Context:Location:Position:Altitude"];
+	[contextAttribute setContextType:@"altitude"];
 	[contextAttribute setContextSource:SOURCE_SENSED];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:nil];
@@ -93,11 +110,11 @@
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 	
-	// Context:Location:Speed
+	// Attribute: speed
 	 
 	contextAttribute = [[ContextAttribute alloc] init];
 	[contextAttribute setContextTimeStamp:[self.locationManager.location timestamp]];
-	[contextAttribute setContextType:@"Context:Location:Position:Speed"];
+	[contextAttribute setContextType:@"speed"];
 	[contextAttribute setContextSource:SOURCE_SENSED];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:nil];
@@ -105,9 +122,10 @@
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 	
-	return super.gatherContexts;
+	return super.getContextAttributeValues;
 	
-}
+
+}	
 
 - (void)dealloc {
 	

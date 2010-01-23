@@ -23,9 +23,15 @@
 	
     self = [super init];
     if (self != nil) {
+		
+		// Init accellerometer
         self.accelerometer = [UIAccelerometer sharedAccelerometer];
 		self.accelerometer.updateInterval = .5;
 		self.accelerometer.delegate = self;
+		
+		// Init attributes
+		NSArray *attributes = [NSArray arrayWithObjects:@"orientationX", @"orientationY", @"orientationZ", nil];
+		self.contextAttributes = [NSMutableDictionary dictionaryWithObjects:attributes forKeys:attributes];
     }
     return self;
 	
@@ -43,17 +49,27 @@
 	
 }
 
-- (NSDictionary *)gatherContexts {
+- (NSArray *)getContextAttributes {
 	
-	NSLog(@"OrientationContextServer::gatherContexts called");
+	return super.getContextAttributes;
+	
+}
+
+- (ContextAttribute *)getContextAttributeValue:(NSString *)attribute {
+	
+	return [super getContextAttributeValue:attribute];
+	
+}
+
+- (NSDictionary *)getContextAttributeValues {
 	
 	ContextAttribute *contextAttribute;
 	
-	// Context:Orientation:DirectionX
+	// Attribute: orientationX
 	
 	contextAttribute = [[ContextAttribute alloc] init];
 	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Orientation:DirectionX"];
+	[contextAttribute setContextType:@"orientationX"];
 	[contextAttribute setContextSource:SOURCE_SENSED];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
@@ -61,11 +77,11 @@
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 
-	// Context:Orientation:DirectionY
+	// Attribute: orientationY
 	
 	contextAttribute = [[ContextAttribute alloc] init];
 	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Orientation:DirectionY"];
+	[contextAttribute setContextType:@"orientationY"];
 	[contextAttribute setContextSource:SOURCE_SENSED];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
@@ -73,11 +89,11 @@
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 	
-	// Context:Orientation:DirectionZ
+	// Attribute: orientationZ
 	
 	contextAttribute = [[ContextAttribute alloc] init];
 	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"Context:Orientation:DirectionZ"];
+	[contextAttribute setContextType:@"orientationZ"];
 	[contextAttribute setContextSource:SOURCE_SENSED];
 	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
 	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
@@ -85,7 +101,7 @@
 	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
 	[contextAttribute release];
 
-	return super.gatherContexts;
+	return super.getContextAttributeValues;
 	
 }
 
