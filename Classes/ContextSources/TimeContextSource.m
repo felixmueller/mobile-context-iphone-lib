@@ -161,17 +161,6 @@
 - (void)dealloc {
 	
     [calendar release];
-    [date release];
-	[hour release];
-	[minute release];
-	[second release];
-	[year release];
-	[month release];
-	[day release];
-	[week release];
-	[weekday release];
-	[timezone release];
-	
 	[super dealloc];
 	
 }
