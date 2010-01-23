@@ -21,30 +21,19 @@
 	
     self = [super init];
     if (self != nil) {
+				
+		// Names of all context sources
+		NSArray *contextSourceNames = [NSArray arrayWithObjects:@"Source:Location", @"Source:Time", @"Source:Orientation", @"Source:Network", @"Source:Device", @"Source:Remote:Weather", nil];
 		
-		// Instanciate all available context sources here
-		id<IContextSource> locationContextSource	= [[LocationContextSource alloc] init];
-		id<IContextSource> timeContextSource		= [[TimeContextSource alloc] init];
-		id<IContextSource> orientationContextSource	= [[OrientationContextSource alloc] init];
-
-		// Name all available context sources here
-		NSArray *contextSourceKeys = [NSArray arrayWithObjects:	@"Source:Location",
-																@"Source:Time",
-																@"Source:Orientation", nil];
-		NSArray *contextSourceObjects = [NSArray arrayWithObjects:	locationContextSource,
-																	timeContextSource,
-																	orientationContextSource, nil];
+		// Classes of all context sourves
+		NSArray *contextSourceClasses = [NSArray arrayWithObjects: @"LocationContextSource", @"TimeContextSource", @"OrientationContextSource", @"NetworkContextSource", @"DeviceContextSourve", @"RemoteWeatherContextServer", nil];
+		
 		// Create a pool dictionary of all available context sources
-		self.contextSourcePool = [NSDictionary dictionaryWithObjects:contextSourceObjects forKeys:contextSourceKeys];
+		self.contextSourcePool = [NSDictionary dictionaryWithObjects:contextSourceClasses forKeys:contextSourceNames];
 		
-		// Create a pool dictionary of all active context sources
+		// Create a dictionary of all active context sources
 		self.contextSources = [[NSMutableDictionary alloc] init];
-		
-		// Release all context sources here
-		[locationContextSource release];
-		[timeContextSource release];
-		[orientationContextSource release];
-		
+				
 		// Configure ObjectiveResource
 		[ObjectiveResourceConfig setSite:@"http://contextserver.felixmueller.name/"];
 		[ObjectiveResourceConfig setUser:@"none"];
@@ -178,20 +167,36 @@
 
 - (BOOL)enableContextSource:(NSString *)contextSource {
 
+	NSLog(@"%@", contextSources);
+	
 	// If context source not already available
 	if ([contextSources objectForKey:contextSource] == nil) {
 	
 		// If new context source is available in the pool
 		if ([contextSourcePool objectForKey:contextSource] != nil) {
-		
-			// Add context source with the given name, its key
-			[contextSources setObject:[contextSourcePool objectForKey:contextSource] forKey:contextSource];
 			
-			// Adding successful
-			return YES;
+			// If the class with the given name exists
+			if (NSClassFromString([contextSourcePool objectForKey:contextSource]) != nil) {
+
+				// Make an object from the given source class
+				id sourceObject = [[NSClassFromString([contextSourcePool objectForKey:contextSource]) alloc] init];
+				
+				// Add the context source object with the given name, its key
+				[contextSources setObject:sourceObject forKey:contextSource];
+				
+				// Release the source object
+				[sourceObject release];
+				
+				// Adding successful
+				return YES;
+			}
+			else
+				// Adding failed
+				return NO;
 		}
-		// Adding failed
-		return NO;
+		else
+			// Adding failed
+			return NO;
 	}
 	else
 		// Adding failed
@@ -280,6 +285,8 @@
 	
 	[contextSources release];
 	[contextSourcePool release];
+	[contexts release];
+	
 	[super dealloc];
 	
 }

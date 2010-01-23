@@ -19,7 +19,7 @@
 @interface ContextService : NSObject {
 
 	/*
-	 * This dictionary stores all available context source objects with their names
+	 * This dictionary stores all available context sources with their class names
 	 */
 	NSDictionary<IContextSource> *contextSourcePool;
 	

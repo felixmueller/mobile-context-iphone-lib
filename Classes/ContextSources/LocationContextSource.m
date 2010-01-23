@@ -111,12 +111,12 @@
 
 - (void)dealloc {
 	
-    [locationManager release];
 	[latitude release];
 	[longitude release];
 	[altitude release];
 	[speed release];
-    
+	[locationManager release];
+	
 	[super dealloc];
 	
 }

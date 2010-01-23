@@ -91,7 +91,10 @@
 
 - (void)dealloc {
 	
-    [accelerometer release];
+	// Point the event receiver to nil to prevent crashing at release
+	self.accelerometer.delegate = nil;
+
+    [accelerometer release];	
 	[super dealloc];
 	
 }
