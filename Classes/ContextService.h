@@ -191,17 +191,17 @@
 - (NSArray *)getContextSources;
 
 /*
- * This method requests all context attributes the context source can deliver.
+ * This method requests all attributes the context source can deliver.
  *
  * Parameters:
  *   source: An NSString containing the context source name
  *
  * Returns:
- *   An NSArray if NSString with the names of the context source attributes
- *   nil if no context attributes were found or an error did occur
+ *   An NSArray if NSString with the names of the context attributes
+ *   nil if no attributes were found or an error did occur
  *
  */
-- (NSArray *)getContextSourceAttributes:(NSString *)source;
+- (NSArray *)getSourceAttributes:(NSString *)source;
 
 /*
  * This method checks if a given context source is enabled.
@@ -249,24 +249,24 @@
  *   none
  *
  * Returns:
- *   An NSDictionary of ContextAttribute with keys = source and values = ContextAttribute objects
+ *   An NSDictionary of Attribute with keys = source and values = Attribute objects
  *   nil if no context source attributes were found or an error did occur
  *
  */
-- (NSDictionary *)getContextSourceAttributes;
+- (NSDictionary *)getSourceAttributes;
 
 /*
- * This method requests a specific context source attribute from the context service.
+ * This method requests a specific context attribute from the context service.
  *
  * Parameters:
  *   contextSourceType: An NSString containing the context source type
  *
  * Returns:
- *   A ContextAttribute with the current context data gathered by the source
- *   nil if the context source attribute was not found or an error did occur
+ *   An Attribute with the current context data gathered by the source
+ *   nil if the context attribute was not found or an error did occur
  *
  */
-- (ContextAttribute *)getContextSourceAttribute:(NSString *)contextSourceType;
+- (Attribute *)getSourceAttribute:(NSString *)contextSourceType;
 
 /*
  * This method registers an object for context change notifications for a given context.
@@ -311,5 +311,10 @@
  *
  */
 - (BOOL)unregisterFromContextChangeNotifications:(id)observer;
+
+//
+// These are helper methods used by the context service
+//
+- (NSMutableArray*)sortDictionaryByKeys:(NSDictionary*)dict;
 
 @end

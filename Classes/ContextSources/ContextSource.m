@@ -6,7 +6,7 @@
 //  Copyright 2009 Felix Mueller (felixmueller@mac.com). All rights reserved.
 //
 //	This superclass represents a context source.
-//	Specific context source services are derived from this class.
+//	Specific context sources are derived from this class.
 //
 
 #import "ContextSource.h"
@@ -14,43 +14,44 @@
 
 @implementation ContextSource
 
-@synthesize contextAttributes;
+@synthesize attributes;
 
 - (id)init {
 	
-	// Init the dictionary for context attribute storage
+	// Init the dictionary for attribute storage
     self = [super init];
     if (self != nil) {
-        self.contextAttributes = [[NSMutableDictionary alloc] init];
+        self.attributes = [[NSMutableDictionary alloc] init];
     }
     return self;
 	
 }
 
-- (ContextAttribute *)getContextAttributeValue:(NSString *)attribute {
+- (NSArray *)getAttributes {
 
-	// Return the context attribute value for the given attribute
-	return [contextAttributes objectForKey:attribute];
-
-}
-
-- (NSArray *)getContextAttributes {
-
-	// Return all context attribute names, the keys of the context attribute dictionary
-	return [contextAttributes allKeys];
+	// Return all attribute names, the keys of the attribute dictionary
+	return [attributes allKeys];
 
 }
 
-- (NSMutableDictionary *)getContextAttributeValues {
+- (NSMutableDictionary *)getAttributeValues {
 	
-	// Return all current context attribute objects
-	return self.contextAttributes;
+	// Return all current attribute objects
+	return self.attributes;
+	
+}
+
+- (Attribute *)getAttributeValue:(NSString *)attribute {
+	
+	// Return the attribute value for the given attribute
+	return [attributes objectForKey:attribute];
 	
 }
 
 - (void)dealloc {
 	
-	[contextAttributes release];
+	[attributes release];
+	
 	[super dealloc];
 }
 

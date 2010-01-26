@@ -83,8 +83,12 @@
 		DC4AF97D110863E00019CE24 /* XMLSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = DC4AF934110863E00019CE24 /* XMLSerializable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC4AF97E110863E00019CE24 /* XMLSerializableSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = DC4AF935110863E00019CE24 /* XMLSerializableSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC77A8EA10CFD93A0027E2B4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC77A8E910CFD93A0027E2B4 /* CoreLocation.framework */; };
-		DC9ED4361105FD2C00217F76 /* ContextAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = DC9ED4281105FD2C00217F76 /* ContextAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC9ED4371105FD2C00217F76 /* ContextAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9ED4291105FD2C00217F76 /* ContextAttribute.m */; };
+		DC92BAC6110EFBD7009B9918 /* NetworkContextSource.h in Headers */ = {isa = PBXBuildFile; fileRef = DC92BAC4110EFBD7009B9918 /* NetworkContextSource.h */; };
+		DC92BAC7110EFBD7009B9918 /* NetworkContextSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DC92BAC5110EFBD7009B9918 /* NetworkContextSource.m */; };
+		DC92BCA9110F2FAA009B9918 /* RemoteHostContextSource.h in Headers */ = {isa = PBXBuildFile; fileRef = DC92BCA7110F2FAA009B9918 /* RemoteHostContextSource.h */; };
+		DC92BCAA110F2FAA009B9918 /* RemoteHostContextSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DC92BCA8110F2FAA009B9918 /* RemoteHostContextSource.m */; };
+		DC9ED4361105FD2C00217F76 /* Attribute.h in Headers */ = {isa = PBXBuildFile; fileRef = DC9ED4281105FD2C00217F76 /* Attribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC9ED4371105FD2C00217F76 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9ED4291105FD2C00217F76 /* Attribute.m */; };
 		DC9ED4381105FD2C00217F76 /* ContextService.h in Headers */ = {isa = PBXBuildFile; fileRef = DC9ED42A1105FD2C00217F76 /* ContextService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC9ED4391105FD2C00217F76 /* ContextService.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9ED42B1105FD2C00217F76 /* ContextService.m */; };
 		DC9ED43A1105FD2C00217F76 /* ContextSource.h in Headers */ = {isa = PBXBuildFile; fileRef = DC9ED42D1105FD2C00217F76 /* ContextSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -178,8 +182,12 @@
 		DC4AF934110863E00019CE24 /* XMLSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLSerializable.h; sourceTree = "<group>"; };
 		DC4AF935110863E00019CE24 /* XMLSerializableSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLSerializableSupport.h; sourceTree = "<group>"; };
 		DC77A8E910CFD93A0027E2B4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		DC9ED4281105FD2C00217F76 /* ContextAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextAttribute.h; sourceTree = "<group>"; };
-		DC9ED4291105FD2C00217F76 /* ContextAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextAttribute.m; sourceTree = "<group>"; };
+		DC92BAC4110EFBD7009B9918 /* NetworkContextSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkContextSource.h; sourceTree = "<group>"; };
+		DC92BAC5110EFBD7009B9918 /* NetworkContextSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkContextSource.m; sourceTree = "<group>"; };
+		DC92BCA7110F2FAA009B9918 /* RemoteHostContextSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteHostContextSource.h; sourceTree = "<group>"; };
+		DC92BCA8110F2FAA009B9918 /* RemoteHostContextSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteHostContextSource.m; sourceTree = "<group>"; };
+		DC9ED4281105FD2C00217F76 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
+		DC9ED4291105FD2C00217F76 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
 		DC9ED42A1105FD2C00217F76 /* ContextService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextService.h; sourceTree = "<group>"; };
 		DC9ED42B1105FD2C00217F76 /* ContextService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextService.m; sourceTree = "<group>"; };
 		DC9ED42D1105FD2C00217F76 /* ContextSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextSource.h; sourceTree = "<group>"; };
@@ -347,8 +355,8 @@
 		DC9ED4271105FD2C00217F76 /* ContextComponents */ = {
 			isa = PBXGroup;
 			children = (
-				DC9ED4281105FD2C00217F76 /* ContextAttribute.h */,
-				DC9ED4291105FD2C00217F76 /* ContextAttribute.m */,
+				DC9ED4281105FD2C00217F76 /* Attribute.h */,
+				DC9ED4291105FD2C00217F76 /* Attribute.m */,
 				DCE7E1EF11060EB600025C23 /* Context.h */,
 				DCE7E1F011060EB600025C23 /* Context.m */,
 			);
@@ -367,6 +375,10 @@
 				DC9ED4331105FD2C00217F76 /* OrientationContextSource.m */,
 				DC9ED4341105FD2C00217F76 /* TimeContextSource.h */,
 				DC9ED4351105FD2C00217F76 /* TimeContextSource.m */,
+				DC92BAC4110EFBD7009B9918 /* NetworkContextSource.h */,
+				DC92BAC5110EFBD7009B9918 /* NetworkContextSource.m */,
+				DC92BCA7110F2FAA009B9918 /* RemoteHostContextSource.h */,
+				DC92BCA8110F2FAA009B9918 /* RemoteHostContextSource.m */,
 			);
 			path = ContextSources;
 			sourceTree = "<group>";
@@ -379,7 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA747D9F0F9514B9006C5449 /* ContextFramework_Prefix.pch in Headers */,
-				DC9ED4361105FD2C00217F76 /* ContextAttribute.h in Headers */,
+				DC9ED4361105FD2C00217F76 /* Attribute.h in Headers */,
 				DC9ED4381105FD2C00217F76 /* ContextService.h in Headers */,
 				DC9ED43A1105FD2C00217F76 /* ContextSource.h in Headers */,
 				DC9ED43C1105FD2C00217F76 /* IContextSource.h in Headers */,
@@ -428,6 +440,8 @@
 				DC4AF97C110863E00019CE24 /* Serialize.h in Headers */,
 				DC4AF97D110863E00019CE24 /* XMLSerializable.h in Headers */,
 				DC4AF97E110863E00019CE24 /* XMLSerializableSupport.h in Headers */,
+				DC92BAC6110EFBD7009B9918 /* NetworkContextSource.h in Headers */,
+				DC92BCA9110F2FAA009B9918 /* RemoteHostContextSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,7 +491,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC9ED4371105FD2C00217F76 /* ContextAttribute.m in Sources */,
+				DC9ED4371105FD2C00217F76 /* Attribute.m in Sources */,
 				DC9ED4391105FD2C00217F76 /* ContextService.m in Sources */,
 				DC9ED43B1105FD2C00217F76 /* ContextSource.m in Sources */,
 				DC9ED43E1105FD2C00217F76 /* LocationContextSource.m in Sources */,
@@ -516,6 +530,8 @@
 				DC4AF976110863E00019CE24 /* NSString+XMLSerializableSupport.m in Sources */,
 				DC4AF978110863E00019CE24 /* ObjectiveResourceDateFormatter.m in Sources */,
 				DC4AF97B110863E00019CE24 /* SBJSON.m in Sources */,
+				DC92BAC7110EFBD7009B9918 /* NetworkContextSource.m in Sources */,
+				DC92BCAA110F2FAA009B9918 /* RemoteHostContextSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +576,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "\"DEBUG\"";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-ObjC";

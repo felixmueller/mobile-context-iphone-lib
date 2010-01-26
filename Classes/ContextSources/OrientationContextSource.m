@@ -30,8 +30,8 @@
 		self.accelerometer.delegate = self;
 		
 		// Init attributes
-		NSArray *attributes = [NSArray arrayWithObjects:@"orientationX", @"orientationY", @"orientationZ", nil];
-		self.contextAttributes = [NSMutableDictionary dictionaryWithObjects:attributes forKeys:attributes];
+		NSArray *attributeNames = [NSArray arrayWithObjects:@"orientationX", @"orientationY", @"orientationZ", nil];
+		self.attributes = [NSMutableDictionary dictionaryWithObjects:attributeNames forKeys:attributeNames];
     }
     return self;
 	
@@ -49,59 +49,59 @@
 	
 }
 
-- (NSArray *)getContextAttributes {
+- (NSArray *)getAttributes {
 	
-	return super.getContextAttributes;
-	
-}
-
-- (ContextAttribute *)getContextAttributeValue:(NSString *)attribute {
-	
-	return [super getContextAttributeValue:attribute];
+	return super.getAttributes;
 	
 }
 
-- (NSDictionary *)getContextAttributeValues {
+- (Attribute *)getAttributeValue:(NSString *)attribute {
 	
-	ContextAttribute *contextAttribute;
+	return [super getAttributeValue:attribute];
+	
+}
+
+- (NSDictionary *)getAttributeValues {
+	
+	Attribute *attribute;
 	
 	// Attribute: orientationX
 	
-	contextAttribute = [[ContextAttribute alloc] init];
-	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"orientationX"];
-	[contextAttribute setContextSource:SOURCE_SENSED];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextValue:[NSString stringWithFormat:@"%f", xValue]];
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
+	attribute = [[Attribute alloc] init];
+	[attribute setTimestamp:[NSDate date]];
+	[attribute setType:@"orientationX"];
+	[attribute setSource:SOURCE_SENSED];
+	[attribute setCorrectness:[NSNumber numberWithDouble:1.0]];
+	[attribute setAccuracy:[NSNumber numberWithDouble:1.0]];
+	[attribute setValue:[NSString stringWithFormat:@"%f", xValue]];
+	[self.attributes setObject:attribute forKey:[attribute type]];
+	[attribute release];
 
 	// Attribute: orientationY
 	
-	contextAttribute = [[ContextAttribute alloc] init];
-	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"orientationY"];
-	[contextAttribute setContextSource:SOURCE_SENSED];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextValue:[NSString stringWithFormat:@"%f", yValue]];
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
+	attribute = [[Attribute alloc] init];
+	[attribute setTimestamp:[NSDate date]];
+	[attribute setType:@"orientationY"];
+	[attribute setSource:SOURCE_SENSED];
+	[attribute setCorrectness:[NSNumber numberWithDouble:1.0]];
+	[attribute setAccuracy:[NSNumber numberWithDouble:1.0]];
+	[attribute setValue:[NSString stringWithFormat:@"%f", yValue]];
+	[self.attributes setObject:attribute forKey:[attribute type]];
+	[attribute release];
 	
 	// Attribute: orientationZ
 	
-	contextAttribute = [[ContextAttribute alloc] init];
-	[contextAttribute setContextTimeStamp:[NSDate date]];
-	[contextAttribute setContextType:@"orientationZ"];
-	[contextAttribute setContextSource:SOURCE_SENSED];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextValue:[NSString stringWithFormat:@"%f", zValue]];
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
+	attribute = [[Attribute alloc] init];
+	[attribute setTimestamp:[NSDate date]];
+	[attribute setType:@"orientationZ"];
+	[attribute setSource:SOURCE_SENSED];
+	[attribute setCorrectness:[NSNumber numberWithDouble:1.0]];
+	[attribute setAccuracy:[NSNumber numberWithDouble:1.0]];
+	[attribute setValue:[NSString stringWithFormat:@"%f", zValue]];
+	[self.attributes setObject:attribute forKey:[attribute type]];
+	[attribute release];
 
-	return super.getContextAttributeValues;
+	return super.getAttributeValues;
 	
 }
 

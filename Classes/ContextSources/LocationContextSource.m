@@ -31,8 +31,8 @@
 		[self.locationManager startUpdatingLocation];
 		
 		// Init attributes
-		NSArray *attributes = [NSArray arrayWithObjects:@"latitude", @"longitude", @"altitude", @"speed", nil];
-		self.contextAttributes = [NSMutableDictionary dictionaryWithObjects:attributes forKeys:attributes];
+		NSArray *attributeNames = [NSArray arrayWithObjects:@"latitude", @"longitude", @"altitude", @"speed", nil];
+		self.attributes = [NSMutableDictionary dictionaryWithObjects:attributeNames forKeys:attributeNames];
 		
     }
     return self;
@@ -51,21 +51,21 @@
 	
 }
 
-- (NSArray *)getContextAttributes {
+- (NSArray *)getAttributes {
 	
-	return super.getContextAttributes;
-	
-}
-
-- (ContextAttribute *)getContextAttributeValue:(NSString *)attribute {
-	
-	return [super getContextAttributeValue:attribute];
+	return super.getAttributes;
 	
 }
 
-- (NSDictionary *)getContextAttributeValues {
+- (Attribute *)getAttributeValue:(NSString *)attribute {
 	
-	ContextAttribute *contextAttribute;
+	return [super getAttributeValue:attribute];
+	
+}
+
+- (NSDictionary *)getAttributeValues {
+	
+	Attribute *attribute;
 
 	// Gather the location values
 	
@@ -76,53 +76,53 @@
 	
 	// Attribute: latitude
 	
-	contextAttribute = [[ContextAttribute alloc] init];
-	[contextAttribute setContextTimeStamp:[self.locationManager.location timestamp]];
-	[contextAttribute setContextType:@"latitude"];
-	[contextAttribute setContextSource:SOURCE_SENSED];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:(self.locationManager.location.verticalAccuracy / 100)]];
-	[contextAttribute setContextValue:latitude];	
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
+	attribute = [[Attribute alloc] init];
+	[attribute setTimestamp:[self.locationManager.location timestamp]];
+	[attribute setType:@"latitude"];
+	[attribute setSource:SOURCE_SENSED];
+	[attribute setCorrectness:[NSNumber numberWithDouble:1.0]];
+	[attribute setAccuracy:[NSNumber numberWithDouble:(self.locationManager.location.verticalAccuracy / 100)]];
+	[attribute setValue:latitude];	
+	[self.attributes setObject:attribute forKey:[attribute type]];
+	[attribute release];
 	
 	// Attribute: longitude
 	
-	contextAttribute = [[ContextAttribute alloc] init];
-	[contextAttribute setContextTimeStamp:[self.locationManager.location timestamp]];
-	[contextAttribute setContextType:@"longitude"];
-	[contextAttribute setContextSource:SOURCE_SENSED];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:[NSNumber numberWithDouble:(self.locationManager.location.horizontalAccuracy / 100)]];
-	[contextAttribute setContextValue:longitude];	
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
+	attribute = [[Attribute alloc] init];
+	[attribute setTimestamp:[self.locationManager.location timestamp]];
+	[attribute setType:@"longitude"];
+	[attribute setSource:SOURCE_SENSED];
+	[attribute setCorrectness:[NSNumber numberWithDouble:1.0]];
+	[attribute setAccuracy:[NSNumber numberWithDouble:(self.locationManager.location.horizontalAccuracy / 100)]];
+	[attribute setValue:longitude];	
+	[self.attributes setObject:attribute forKey:[attribute type]];
+	[attribute release];
 	
 	// Attribute: altitude
 	
-	contextAttribute = [[ContextAttribute alloc] init];
-	[contextAttribute setContextTimeStamp:[self.locationManager.location timestamp]];
-	[contextAttribute setContextType:@"altitude"];
-	[contextAttribute setContextSource:SOURCE_SENSED];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:nil];
-	[contextAttribute setContextValue:altitude];	
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
+	attribute = [[Attribute alloc] init];
+	[attribute setTimestamp:[self.locationManager.location timestamp]];
+	[attribute setType:@"altitude"];
+	[attribute setSource:SOURCE_SENSED];
+	[attribute setCorrectness:[NSNumber numberWithDouble:1.0]];
+	[attribute setAccuracy:nil];
+	[attribute setValue:altitude];	
+	[self.attributes setObject:attribute forKey:[attribute type]];
+	[attribute release];
 	
 	// Attribute: speed
 	 
-	contextAttribute = [[ContextAttribute alloc] init];
-	[contextAttribute setContextTimeStamp:[self.locationManager.location timestamp]];
-	[contextAttribute setContextType:@"speed"];
-	[contextAttribute setContextSource:SOURCE_SENSED];
-	[contextAttribute setContextCorrectness:[NSNumber numberWithDouble:1.0]];
-	[contextAttribute setContextAccuracy:nil];
-	[contextAttribute setContextValue:speed];	
-	[self.contextAttributes setObject:contextAttribute forKey:[contextAttribute contextType]];
-	[contextAttribute release];
+	attribute = [[Attribute alloc] init];
+	[attribute setTimestamp:[self.locationManager.location timestamp]];
+	[attribute setType:@"speed"];
+	[attribute setSource:SOURCE_SENSED];
+	[attribute setCorrectness:[NSNumber numberWithDouble:1.0]];
+	[attribute setAccuracy:nil];
+	[attribute setValue:speed];	
+	[self.attributes setObject:attribute forKey:[attribute type]];
+	[attribute release];
 	
-	return super.getContextAttributeValues;
+	return super.getAttributeValues;
 	
 
 }	

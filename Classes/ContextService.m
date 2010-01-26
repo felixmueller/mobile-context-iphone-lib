@@ -23,10 +23,10 @@
     if (self != nil) {
 				
 		// Names of all context sources
-		NSArray *contextSourceNames = [NSArray arrayWithObjects:@"Location", @"Time", @"Orientation", @"Network", @"Device", @"Weather", @"User", nil];
+		NSArray *contextSourceNames = [NSArray arrayWithObjects:@"Device : Location", @"Device : Time", @"Device : Orientation", @"Device : Network", @"Remote : GeoIP", @"Remote : Weather", @"User : Identity", @"User : Activity", nil];
 		
 		// Classes of all context sourves
-		NSArray *contextSourceClasses = [NSArray arrayWithObjects: @"LocationContextSource", @"TimeContextSource", @"OrientationContextSource", @"NetworkContextSource", @"DeviceContextSourve", @"WeatherContextServer", @"UserContextSource", nil];
+		NSArray *contextSourceClasses = [NSArray arrayWithObjects: @"LocationContextSource", @"TimeContextSource", @"OrientationContextSource", @"NetworkContextSource", @"RemoteHostContextSource", @"RemoteWeatherContextSource", @"UserIdentityContextSource", @"UserActivityContextSource", nil];
 		
 		// Create a pool dictionary of all available context sources
 		self.contextSourcePool = [NSDictionary dictionaryWithObjects:contextSourceClasses forKeys:contextSourceNames];
@@ -38,11 +38,6 @@
 		[ObjectiveResourceConfig setSite:@"http://contextserver.felixmueller.name/"];
 		[ObjectiveResourceConfig setUser:@"none"];
 		[ObjectiveResourceConfig setPassword:@"none"];
-		
-		// Use JSON
-		//[ObjectiveResourceConfig setResponseType:JSONResponse];
-		
-		// Use XML
 		[ObjectiveResourceConfig setResponseType:XmlResponse];
 
     }
@@ -75,19 +70,24 @@
 
 - (NSDictionary *)getContexts {
 
-	// not yet implemented!
-	
-	return nil;
+	// Delegate call to method "getContextsForUser:"
+	return [self getContextsForUser:nil];
 }
 
 - (NSDictionary *)getContextsForUser:(NSString *)userName {
 	
-	
-	// Get all context source attributes containing their current values
-	NSDictionary *contextAttributes = [self getContextSourceAttributes];
+	// Delegate call to method "getContextsForUser:withType:"
+	return [self getContextsForUser:userName withType:nil];
 
-	// Get all context source attribute keys
-	NSArray *attributeKeys = [NSArray arrayWithArray:[contextAttributes allKeys]];
+}
+
+- (NSDictionary *)getContextsForUser:(NSString *)userName withType:(NSString *)contextType {
+
+	// Get all source attributes containing their current values
+	NSDictionary *attributes = [self getSourceAttributes];
+	
+	// Get all source attribute keys
+	NSArray *attributeKeys = [NSArray arrayWithArray:[attributes allKeys]];
 	
 	// Prepare the attribute parameter string with format {'attribute'=>'value','attribute'=>'value', ...}
 	NSString *attributeParameterString = [[NSString alloc] init];
@@ -111,7 +111,7 @@
 			attributeParameterString = [attributeParameterString stringByAppendingString:@"'=>'"];
 			
 			// Add the attribute value
-			attributeParameterString = [attributeParameterString stringByAppendingString:[[contextAttributes objectForKey:attributeKey] contextValue]];
+			attributeParameterString = [attributeParameterString stringByAppendingString:[[attributes objectForKey:attributeKey] value]];
 			
 			// Add the closing apostrophe and comma
 			attributeParameterString = [attributeParameterString stringByAppendingString:@"',"];
@@ -126,19 +126,27 @@
 		
 	}
 	
-	// Prepare the query parameter string and fill it with "user"
-	NSMutableArray *queryKeys = [NSMutableArray arrayWithObjects:@"user", nil];
+	// Prepare the query parameter string
+	NSMutableArray *queryKeys = [[NSMutableArray alloc] init];
+	NSMutableArray *queryValues = [[NSMutableArray alloc] init];
 	
-	// If there are attributes add "attributes"
-	if ([attributeKeys count] > 0)
+	// Fill the parameter string with user if available
+	if (userName != nil) {
+		[queryKeys addObject:@"user"];
+		[queryValues addObject:userName];
+	}
+	
+	// Fill the parameter string with type if available
+	if (contextType != nil) {
+		[queryKeys addObject:@"type"];
+		[queryValues addObject:contextType];
+	}
+	
+	// Fill the parameter string with attributes if available
+	if ([attributeKeys count] > 0) {
 		[queryKeys addObject:@"attributes"];
-	
-	// Prepare the query parameter value string and fill it with the user name
-	NSMutableArray *queryValues = [NSMutableArray arrayWithObjects:userName, nil];
-	
-	// If there are attributes add the attribute string
-	if ([attributeKeys count] > 0)
 		[queryValues addObject:attributeParameterString];
+	}
 	
 	// Create query parameter dictionary
 	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:queryValues forKeys:queryKeys];
@@ -157,15 +165,7 @@
 	}
 	
 	// Return the context dictionary
-	return contextDictionary;
-
-}
-
-- (NSDictionary *)getContextsForUser:(NSString *)userName withType:(NSString *)contextType {
-
-	// not yet implemented!
-	
-	return nil;
+	return contextDictionary;	
 	
 }
 	
@@ -203,15 +203,15 @@
 
 - (NSArray *)getContextSources {
 
-	// Return all context source names, the keys of the context source dictionary
-	return [contextSourcePool allKeys];
+	// Return all context source names, sorted alphabetically
+	return [self sortDictionaryByKeys:contextSourcePool];
 	
 }
 
-- (NSArray *)getContextSourceAttributes:(NSString *)source {
+- (NSArray *)getSourceAttributes:(NSString *)source {
 
-	// Return the context sourve attributes of the requested source
-	return [[contextSources objectForKey:source] getContextAttributes];
+	// Return the source attributes of the requested source
+	return [[contextSources objectForKey:source] getAttributes];
 
 }
 
@@ -282,10 +282,10 @@
 	
 }
 
-- (NSDictionary *)getContextSourceAttributes {
+- (NSDictionary *)getSourceAttributes {
 
 	// Create a dictionary for the return attributes
-	NSMutableDictionary *contextAttributeDictionary = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *attributeDictionary = [[NSMutableDictionary alloc] init];
 	
 	// Get all context sources
 	NSArray *contextSourceKeys = [NSArray arrayWithArray:[contextSources allKeys]];
@@ -294,27 +294,26 @@
 	for(NSString *contextSourceKey in contextSourceKeys) {
 		ContextSource *contextSource = [contextSources objectForKey:contextSourceKey];
 		
-		// Get all context attributes
-		NSDictionary *contextAttributes = [contextSource getContextAttributeValues];
-		NSArray *contextAttributeKeys = [NSArray arrayWithArray:[contextAttributes allKeys]];
+		// Get all attributes
+		NSDictionary *attributes = [contextSource getAttributeValues];
+		NSArray *attributeKeys = [NSArray arrayWithArray:[attributes allKeys]];
 
-		// Iterate all context attributes
-		for(NSString *contextAttributeKey in contextAttributeKeys) {
+		// Iterate all attributes
+		for(NSString *attributeKey in attributeKeys) {
 			
-			// Add all context attributes to the return dictionary
-			[contextAttributeDictionary setObject:[contextAttributes objectForKey:contextAttributeKey] forKey:contextAttributeKey];
+			// Add all attributes to the return dictionary
+			[attributeDictionary setObject:[attributes objectForKey:attributeKey] forKey:attributeKey];
 		}
 	}
-	
+
 	// Return attribute dictionary
-	return contextAttributeDictionary;
+	return attributeDictionary;
 
 }
-- (ContextAttribute *)getContextSourceAttribute:(NSString *)contextSourceType {
+- (Attribute *)getSourceAttribute:(NSString *)contextSourceType {
 
-	// not yet implemented!
-	
-	return nil;
+	// Delegate call to method "getSourceAttributes"
+	return [[self getSourceAttributes] objectForKey:contextSourceType];
 	
 }
 
@@ -340,6 +339,60 @@
 	
 	return NO;
 
+}
+
+- (NSMutableArray*)sortDictionaryByKeys:(NSDictionary*)dict
+{
+	
+	if(!dict)
+		return nil;
+	NSMutableArray *sortedKeys = [NSMutableArray arrayWithArray: [dict allKeys]];
+	if([sortedKeys count] <= 0)
+		return nil;
+	else if([sortedKeys count] == 1)
+		return sortedKeys; // No sort needed
+	
+	// Perform bubble sort on keys
+	int n = [sortedKeys count] -1;
+	int i;
+	BOOL swapped = YES;
+	
+	NSString *key1,*key2;
+	NSComparisonResult result;
+	
+	while(swapped)
+	{
+		swapped = NO;
+		for(i=0;i<n;i++)
+		{
+			key1 = [sortedKeys objectAtIndex: i];
+			key2 = [sortedKeys objectAtIndex: i+1];
+			
+			// Here is a basic NSString comparison
+			result = [key1 compare: key2 options: NSCaseInsensitiveSearch];
+			if(result == NSOrderedDescending)
+			{
+				// Retain for good form
+				[key1 retain];
+				[key2 retain];
+				
+				// Pop the two keys out of the array
+				[sortedKeys removeObjectAtIndex: i]; // Key 1
+				[sortedKeys removeObjectAtIndex: i]; // Key 2
+		
+				// Replace keys
+				[sortedKeys insertObject: key1 atIndex: i];
+				[sortedKeys insertObject: key2 atIndex: i];
+				
+				[key1 release];
+				[key2 release];
+				
+				swapped = YES;
+			}
+		}
+	}
+	
+	return sortedKeys;
 }
 
 - (void)dealloc {

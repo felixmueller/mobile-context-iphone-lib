@@ -9,8 +9,6 @@
 //
 
 #import "Context.h"
-#import "Response.h"
-#import "Connection.h"
 
 
 @implementation Context

@@ -9,6 +9,8 @@
 //
 
 #import "ObjectiveResource.h"
+#import "Response.h"
+#import "Connection.h"
 
 
 @interface Context : NSObject {

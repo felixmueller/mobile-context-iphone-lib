@@ -41,7 +41,7 @@ static NSMutableArray *activeDelegates;
 + (void)logRequest:(NSURLRequest *)request to:(NSString *)url {
 	debugLog(@"%@ -> %@", [request HTTPMethod], url);
 	if([request HTTPBody]) {
-		debugLog([[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] autorelease]);
+		debugLog(@"@%", [[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] autorelease]);
 	}
 }
 

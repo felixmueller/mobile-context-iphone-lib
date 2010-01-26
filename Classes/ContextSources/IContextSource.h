@@ -8,31 +8,18 @@
 //	This protocol defines the interface that every context source has to implement.
 //
 
-#import "ContextAttribute.h"
+#import "Attribute.h"
 
 @protocol IContextSource <NSObject>
+
+@required
 
 //
 // These are the context source API methods that can be called on every context source
 //
 
-@required
-
 /*
- * This method requests a specific current context attribute value from the context source.
- *
- * Parameters:
- *   attribute: An NSString containing the name of the requested context attribute
- *
- * Returns:
- *   A ContextAttribute with the current context attribute value
- *   nil if no context attribute value was found or an error did occur
- *
- */
-- (ContextAttribute *)getContextAttributeValue:(NSString *)attribute;
-
-/*
- * This method requests all context attributes the context source can deliver.
+ * This method requests all attributes the context source can deliver.
  *
  * Parameters:
  *   none
@@ -42,19 +29,32 @@
  *   nil if no context attribute was found or an error did occur
  *
  */
-- (NSArray *)getContextAttributes;
+- (NSArray *)getAttributes;
 
 /*
- * This method requests all current context attribute values from the context source.
+ * This method requests all current attribute values from the context source.
  *
  * Parameters:
  *   none
  *
  * Returns:
- *   An NSDictionary of ContextAttributes with all current context attribute values
- *   nil if no context attribute values were found or an error did occur
+ *   An NSDictionary of Attributes with all current attribute values
+ *   nil if no attribute values were found or an error did occur
  *
  */
-- (NSMutableDictionary *)getContextAttributeValues;
+- (NSMutableDictionary *)getAttributeValues;
+
+/*
+ * This method requests a specific current attribute value from the context source.
+ *
+ * Parameters:
+ *   attribute: An NSString containing the name of the requested attribute
+ *
+ * Returns:
+ *   An Attribute with the current context attribute value
+ *   nil if no context attribute value was found or an error did occur
+ *
+ */
+- (Attribute *)getAttributeValue:(NSString *)attribute;
 
 @end
