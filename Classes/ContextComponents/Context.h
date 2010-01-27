@@ -16,14 +16,18 @@
 @interface Context : NSObject {
 	
 	NSString	*type;
-	NSString	*value;
+	NSString	*name;
 	NSDate		*timestamp;
+	NSNumber	*accuracy;
+	NSNumber	*correctness;
 	
 }
 
 @property (nonatomic, retain) NSString	*type;
-@property (nonatomic, retain) NSString	*value;
+@property (nonatomic, retain) NSString	*name;
 @property (nonatomic, retain) NSDate	*timestamp;
+@property (nonatomic, retain) NSNumber	*accuracy;
+@property (nonatomic, retain) NSNumber	*correctness;
 
 /*
  * This class method extends ObjectiveResouce by finding all remote resources by adding query parameters.

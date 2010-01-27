@@ -16,14 +16,14 @@
 
 @interface NetworkContextSource : ContextSource <IContextSource> {
 
-	NSString *wifiName;
-	NSDate *wifiDate;
+	NSString *wlanName;
+	NSDate *wlanDate;
 	NSString *ipAddress;
 	
 }
 
-@property (nonatomic, retain) NSString *wifiName;
-@property (nonatomic, retain) NSDate *wifiDate;
+@property (nonatomic, retain) NSString *wlanName;
+@property (nonatomic, retain) NSDate *wlanDate;
 @property (nonatomic, retain) NSString *ipAddress;
 
 @end

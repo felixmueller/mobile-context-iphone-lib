@@ -14,9 +14,17 @@
 @implementation Context
 
 @synthesize	type;
-@synthesize	value;
+@synthesize	name;
 @synthesize timestamp;
+@synthesize accuracy;
+@synthesize correctness;
 
+- (NSArray *)excludedPropertyNames {
+	
+	NSArray *exclusions = [NSArray arrayWithObjects:@"accuracy", @"correctness", nil];
+	return [[super excludedPropertyNames] arrayByAddingObjectsFromArray:exclusions];
+	
+}
 
 + (NSArray *)findAllRemoteWithParams:(NSMutableDictionary *)params {
 	
@@ -71,8 +79,10 @@
 - (void)dealloc {
 	
 	[type release];
-	[value release];
+	[name release];
 	[timestamp release];
+	[accuracy release];
+	[correctness release];
 	
 	[super dealloc];
 }

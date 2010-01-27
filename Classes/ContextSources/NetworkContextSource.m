@@ -16,8 +16,8 @@
 
 @implementation NetworkContextSource
 
-@synthesize wifiName;
-@synthesize wifiDate;
+@synthesize wlanName;
+@synthesize wlanDate;
 @synthesize ipAddress;
 
 - (id)init {
@@ -26,14 +26,14 @@
     if (self != nil) {
 		
 		// Init attributes
-		NSArray *attributeNames = [NSArray arrayWithObjects:@"wifiName", @"ipAddress", nil];
+		NSArray *attributeNames = [NSArray arrayWithObjects:@"wlanName", @"ipAddress", nil];
 		self.attributes = [NSMutableDictionary dictionaryWithObjects:attributeNames forKeys:attributeNames];
 		
 		// Init values
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		[dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
-		self.wifiDate = [dateFormatter dateFromString:@"1900-01-01 00:00:00"];
-		self.wifiName = @"unknown";
+		self.wlanDate = [dateFormatter dateFromString:@"1900-01-01 00:00:00"];
+		self.wlanName = @"unknown";
 		self.ipAddress = @"unknown";
 	
 	}
@@ -80,9 +80,9 @@
 				NSDate *networkDate = networkAutoJoined ? networkAutoJoined : networkJoined;
 			
 				// Save the network name and date if more recent than the old
-				if ([self.wifiDate compare:networkDate] == NSOrderedAscending) {
-					self.wifiName = networkName;
-					self.wifiDate = networkDate;
+				if ([self.wlanDate compare:networkDate] == NSOrderedAscending) {
+					self.wlanName = networkName;
+					self.wlanDate = networkDate;
 				}
 				
 			}
@@ -124,15 +124,15 @@
 	// Free memory
 	freeifaddrs(interfaces);
 	
-	// Attribute: wifiName
+	// Attribute: wlanName
 	
 	attribute = [[Attribute alloc] init];	
-	[attribute setTimestamp:self.wifiDate];
-	[attribute setType:@"wifiName"];
+	[attribute setTimestamp:self.wlanDate];
+	[attribute setType:@"wlanName"];
 	[attribute setSource:SOURCE_DEVICE];
 	[attribute setCorrectness:[NSNumber numberWithDouble:1.0]];
 	[attribute setAccuracy:[NSNumber numberWithDouble:1.0]];
-	[attribute setValue:self.wifiName];
+	[attribute setValue:self.wlanName];
 	[self.attributes setObject:attribute forKey:[attribute type]];
 	[attribute release];
 
@@ -154,8 +154,8 @@
 
 - (void)dealloc {
 	
-    [wifiName release];
-	[wifiDate release];
+    [wlanName release];
+	[wlanDate release];
 	[ipAddress release];
 	
 	[super dealloc];

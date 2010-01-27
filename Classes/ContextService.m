@@ -36,6 +36,7 @@
 				
 		// Configure ObjectiveResource
 		[ObjectiveResourceConfig setSite:@"http://contextserver.felixmueller.name/"];
+		//[ObjectiveResourceConfig setSite:@"http://localhost:4567/"];
 		[ObjectiveResourceConfig setUser:@"none"];
 		[ObjectiveResourceConfig setPassword:@"none"];
 		[ObjectiveResourceConfig setResponseType:XmlResponse];
@@ -161,7 +162,7 @@
 	for(Context *context in contextResults) {
 		
 		// Add context to the return dictionary
-		[contextDictionary setObject:context forKey:context.value];
+		[contextDictionary setObject:context forKey:context.name];
 	}
 	
 	// Return the context dictionary
