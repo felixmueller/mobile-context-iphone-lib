@@ -100,6 +100,11 @@
 		DC9ED4401105FD2C00217F76 /* OrientationContextSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9ED4331105FD2C00217F76 /* OrientationContextSource.m */; };
 		DC9ED4411105FD2C00217F76 /* TimeContextSource.h in Headers */ = {isa = PBXBuildFile; fileRef = DC9ED4341105FD2C00217F76 /* TimeContextSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC9ED4421105FD2C00217F76 /* TimeContextSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9ED4351105FD2C00217F76 /* TimeContextSource.m */; };
+		DCAC6E741111C727003D723E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCAC6E731111C727003D723E /* AudioToolbox.framework */; };
+		DCAC6E791111C73D003D723E /* AudioContextSource.h in Headers */ = {isa = PBXBuildFile; fileRef = DCAC6E771111C73D003D723E /* AudioContextSource.h */; };
+		DCAC6E7A1111C73D003D723E /* AudioContextSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAC6E781111C73D003D723E /* AudioContextSource.m */; };
+		DCAC6EA41111C8FC003D723E /* SCListener.h in Headers */ = {isa = PBXBuildFile; fileRef = DCAC6EA21111C8FC003D723E /* SCListener.h */; };
+		DCAC6EA51111C8FC003D723E /* SCListener.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAC6EA31111C8FC003D723E /* SCListener.m */; };
 		DCE7E1F111060EB600025C23 /* Context.h in Headers */ = {isa = PBXBuildFile; fileRef = DCE7E1EF11060EB600025C23 /* Context.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCE7E1F211060EB600025C23 /* Context.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE7E1F011060EB600025C23 /* Context.m */; };
 /* End PBXBuildFile section */
@@ -199,6 +204,11 @@
 		DC9ED4331105FD2C00217F76 /* OrientationContextSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrientationContextSource.m; sourceTree = "<group>"; };
 		DC9ED4341105FD2C00217F76 /* TimeContextSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeContextSource.h; sourceTree = "<group>"; };
 		DC9ED4351105FD2C00217F76 /* TimeContextSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeContextSource.m; sourceTree = "<group>"; };
+		DCAC6E731111C727003D723E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DCAC6E771111C73D003D723E /* AudioContextSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioContextSource.h; sourceTree = "<group>"; };
+		DCAC6E781111C73D003D723E /* AudioContextSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioContextSource.m; sourceTree = "<group>"; };
+		DCAC6EA21111C8FC003D723E /* SCListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCListener.h; sourceTree = "<group>"; };
+		DCAC6EA31111C8FC003D723E /* SCListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCListener.m; sourceTree = "<group>"; };
 		DCE7E1EF11060EB600025C23 /* Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Context.h; sourceTree = "<group>"; };
 		DCE7E1F011060EB600025C23 /* Context.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Context.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -210,6 +220,7 @@
 			files = (
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 				DC77A8EA10CFD93A0027E2B4 /* CoreLocation.framework in Frameworks */,
+				DCAC6E741111C727003D723E /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +251,7 @@
 			children = (
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
 				DC77A8E910CFD93A0027E2B4 /* CoreLocation.framework */,
+				DCAC6E731111C727003D723E /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -342,6 +354,7 @@
 		DC9ED4261105FD2C00217F76 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DCAC6EA11111C8FC003D723E /* AudioListener */,
 				DC4AF8EB110863E00019CE24 /* ObjectiveResource */,
 				DC4AF8FF110863E00019CE24 /* ObjectiveSupport */,
 				DC9ED4271105FD2C00217F76 /* ContextComponents */,
@@ -379,8 +392,19 @@
 				DC92BAC5110EFBD7009B9918 /* NetworkContextSource.m */,
 				DC92BCA7110F2FAA009B9918 /* RemoteHostContextSource.h */,
 				DC92BCA8110F2FAA009B9918 /* RemoteHostContextSource.m */,
+				DCAC6E771111C73D003D723E /* AudioContextSource.h */,
+				DCAC6E781111C73D003D723E /* AudioContextSource.m */,
 			);
 			path = ContextSources;
+			sourceTree = "<group>";
+		};
+		DCAC6EA11111C8FC003D723E /* AudioListener */ = {
+			isa = PBXGroup;
+			children = (
+				DCAC6EA21111C8FC003D723E /* SCListener.h */,
+				DCAC6EA31111C8FC003D723E /* SCListener.m */,
+			);
+			path = AudioListener;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,6 +466,8 @@
 				DC4AF97E110863E00019CE24 /* XMLSerializableSupport.h in Headers */,
 				DC92BAC6110EFBD7009B9918 /* NetworkContextSource.h in Headers */,
 				DC92BCA9110F2FAA009B9918 /* RemoteHostContextSource.h in Headers */,
+				DCAC6E791111C73D003D723E /* AudioContextSource.h in Headers */,
+				DCAC6EA41111C8FC003D723E /* SCListener.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +558,8 @@
 				DC4AF97B110863E00019CE24 /* SBJSON.m in Sources */,
 				DC92BAC7110EFBD7009B9918 /* NetworkContextSource.m in Sources */,
 				DC92BCAA110F2FAA009B9918 /* RemoteHostContextSource.m in Sources */,
+				DCAC6E7A1111C73D003D723E /* AudioContextSource.m in Sources */,
+				DCAC6EA51111C8FC003D723E /* SCListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

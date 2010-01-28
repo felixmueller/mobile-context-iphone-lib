@@ -23,10 +23,10 @@
     if (self != nil) {
 				
 		// Names of all context sources
-		NSArray *contextSourceNames = [NSArray arrayWithObjects:@"Device : Location", @"Device : Time", @"Device : Orientation", @"Device : Network", @"Remote : GeoIP", @"Remote : Weather", @"User : Identity", @"User : Activity", nil];
+		NSArray *contextSourceNames = [NSArray arrayWithObjects:@"Device : Location", @"Device : Time", @"Device : Orientation", @"Device : Network", @"Device : Audio", @"Remote : GeoIP", @"Remote : Weather", @"User : Identity", @"User : Activity", nil];
 		
 		// Classes of all context sourves
-		NSArray *contextSourceClasses = [NSArray arrayWithObjects: @"LocationContextSource", @"TimeContextSource", @"OrientationContextSource", @"NetworkContextSource", @"RemoteHostContextSource", @"RemoteWeatherContextSource", @"UserIdentityContextSource", @"UserActivityContextSource", nil];
+		NSArray *contextSourceClasses = [NSArray arrayWithObjects: @"LocationContextSource", @"TimeContextSource", @"OrientationContextSource", @"NetworkContextSource", @"AudioContextSource", @"RemoteHostContextSource", @"RemoteWeatherContextSource", @"UserIdentityContextSource", @"UserActivityContextSource", nil];
 		
 		// Create a pool dictionary of all available context sources
 		self.contextSourcePool = [NSDictionary dictionaryWithObjects:contextSourceClasses forKeys:contextSourceNames];
