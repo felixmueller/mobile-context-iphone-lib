@@ -25,7 +25,7 @@
  *   none
  *
  * Returns:
- *   An NSArray if NSString with the names of the context attributes
+ *   An NSArray of NSString with the names of the context attributes
  *   nil if no context attribute was found or an error did occur
  *
  */

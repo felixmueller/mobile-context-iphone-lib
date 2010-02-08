@@ -28,6 +28,9 @@
 	 */
 	NSMutableDictionary<IContextSource> *contextSources;
 	
+	/*
+	 * This mutable array stores all context abjects
+	 */
 	NSMutableArray *contexts;
 	
 }
