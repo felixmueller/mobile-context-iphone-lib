@@ -246,7 +246,7 @@
 - (BOOL)disableContextSource:(NSString *)contextSource;
 
 /*
- * This method requests all context source attributes currently available by the context service.
+ * This method requests all context source attribute values currently available by the context service.
  *
  * Parameters:
  *   none
@@ -256,10 +256,10 @@
  *   nil if no context source attributes were found or an error did occur
  *
  */
-- (NSDictionary *)getSourceAttributes;
+- (NSDictionary *)getSourceAttributeValues;
 
 /*
- * This method requests a specific context attribute from the context service.
+ * This method requests a specific context attribute value from the context service.
  *
  * Parameters:
  *   contextSourceType: An NSString containing the context source type
@@ -269,7 +269,7 @@
  *   nil if the context attribute was not found or an error did occur
  *
  */
-- (Attribute *)getSourceAttribute:(NSString *)contextSourceType;
+- (Attribute *)getSourceAttributeValue:(NSString *)contextSourceType;
 
 /*
  * This method registers an object for context change notifications for a given context.

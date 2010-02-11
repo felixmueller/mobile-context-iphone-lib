@@ -85,7 +85,7 @@
 - (NSDictionary *)getContextsForUser:(NSString *)userName withType:(NSString *)contextType {
 
 	// Get all source attributes containing their current values
-	NSDictionary *attributes = [self getSourceAttributes];
+	NSDictionary *attributes = [self getSourceAttributeValues];
 	
 	// Get all source attribute keys
 	NSArray *attributeKeys = [NSArray arrayWithArray:[attributes allKeys]];
@@ -283,7 +283,7 @@
 	
 }
 
-- (NSDictionary *)getSourceAttributes {
+- (NSDictionary *)getSourceAttributeValues {
 
 	// Create a dictionary for the return attributes
 	NSMutableDictionary *attributeDictionary = [[NSMutableDictionary alloc] init];
@@ -311,10 +311,10 @@
 	return attributeDictionary;
 
 }
-- (Attribute *)getSourceAttribute:(NSString *)contextSourceType {
+- (Attribute *)getSourceAttributeValue:(NSString *)contextSourceType {
 
 	// Delegate call to method "getSourceAttributes"
-	return [[self getSourceAttributes] objectForKey:contextSourceType];
+	return [[self getSourceAttributeValues] objectForKey:contextSourceType];
 	
 }
 
