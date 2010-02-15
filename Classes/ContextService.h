@@ -220,7 +220,7 @@
 - (BOOL)contextSourceEnabled:(NSString *)contextSource;
 
 /*
- * This method enables a given context sources.
+ * This method enables a given context source.
  *
  * Parameters:
  *   contextSource: An NSString containing the name of the context source
@@ -233,7 +233,7 @@
 - (BOOL)enableContextSource:(NSString *)contextSource;
 
 /*
- * This method disables a given context sources.
+ * This method disables a given context source.
  *
  * Parameters:
  *   contextSource: An NSString containing the name of the context source
