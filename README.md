@@ -38,30 +38,45 @@ The framework is now prepared and built. Here is how to include the library into
 
 3. The next step is to set up the paths to the library and header files in a generic way, so the files can always be found, no matter which configuration and platforms you select. Open the contextual menu on your active target and choose "Get Info". Swich to "All Configurations". Search for "Library Search Paths" and enter the path `$(SRCROOT)/../mobile-context-iphone-lib/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)`. Find the setting "Header Search Paths" and add the path `${PROJECT_DIR}/../mobile-context-iphone-lib/build/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include`.
 
-4. Lastly, you have to set up a few linker flags. Find the "Other Linker Flags" setting and add `-ObjC` and `-all_load`.
+4. Lastly, you have to set up two linker flags. Find the "Other Linker Flags" setting and add `-ObjC` and `-all_load`.
 
 #### 3. First steps in using the framework ####
 
 You are now ready to use the included framework. Here are a few hints how to get started:
 
-1. The first step is to init the context service, for example in the `applicationDidFinishLaunching:application` method of your application delegate:
+* *Init the service*
 
-	ContextService *contextService = [[ContextService alloc] init];
+	The first step is to init the context service, for example in the `applicationDidFinishLaunching:application` method of your application delegate:
 
-2. To save a list of all available context sources, simply call
+		ContextService *contextService = [[ContextService alloc] init];
 
-	NSArray *contextSources = [delegate.contextService getContextSources];
+* *Manage context sources*
 
-3. To enable or disable a specific context source, you can use
+	To save a list of all available context sources, simply call
 
-	[delegate.contextService enableContextSource:SOURCE_TO_ENABLE];
+		NSArray *contextSources = [delegate.contextService getContextSources];
 
-	[delegate.contextService disableContextSource:SOURCE_TO_DISABLE];
+	To enable or disable a specific context source, you can use
 
+		[delegate.contextService enableContextSource:SOURCE_TO_ENABLE];
+		[delegate.contextService disableContextSource:SOURCE_TO_DISABLE];
+
+* *Gather attribute values*
+
+	To get all current attribute values, you can call
+
+		NSDictionary *contexts = [delegate.contextService getSourceAttributeValues];
+
+
+* *Get contexts*
+
+	To get all currently matching contexts for a user, you can call
+	
+		NSDictionary *contexts = [delegate.contextService getContextsForUser:USER_NAME];
 
 ### API documentation ###
 
-coming soon...
+Here is the full API documentation of all methods provided by the context service:
 
 
 
