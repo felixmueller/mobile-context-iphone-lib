@@ -46,17 +46,17 @@ You are now ready to use the included framework. Here are a few hints how to get
 
 1. The first step is to init the context service, for example in the `applicationDidFinishLaunching:application` method of your application delegate:
 
-    ContextService *contextService = [[ContextService alloc] init];
+	ContextService *contextService = [[ContextService alloc] init];
 
 2. To save a list of all available context sources, simply call
 
-    NSArray *contextSources = [delegate.contextService getContextSources];
+	NSArray *contextSources = [delegate.contextService getContextSources];
 
 3. To enable or disable a specific context source, you can use
 
-    [delegate.contextService enableContextSource:SOURCE_TO_ENABLE];
+	[delegate.contextService enableContextSource:SOURCE_TO_ENABLE];
 
-    [delegate.contextService disableContextSource:SOURCE_TO_DISABLE];
+	[delegate.contextService disableContextSource:SOURCE_TO_DISABLE];
 
 
 ### API documentation ###
