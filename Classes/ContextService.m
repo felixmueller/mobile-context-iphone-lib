@@ -35,8 +35,10 @@
 		self.contextSources = [[NSMutableDictionary alloc] init];
 				
 		// Configure ObjectiveResource
-		[ObjectiveResourceConfig setSite:@"http://contextserver.felixmueller.name/"];
-		//[ObjectiveResourceConfig setSite:@"http://localhost:4567/"];
+		
+		// You have to enter the hostname of your running context server here:
+		// E.g.: [ObjectiveResourceConfig setSite:@"http://myhostname/"];
+		[ObjectiveResourceConfig setSite:@"http://YOUR_HOSTNAME_HERE/"];
 		[ObjectiveResourceConfig setUser:@"none"];
 		[ObjectiveResourceConfig setPassword:@"none"];
 		[ObjectiveResourceConfig setResponseType:XmlResponse];
