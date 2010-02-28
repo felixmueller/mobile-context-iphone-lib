@@ -78,6 +78,56 @@ You are now ready to use the included framework. Here are a few hints how to get
 
 Here is the full API documentation of all methods provided by the context service:
 
+#### User management ####
 
+* **Request all existing users from the context model**
+
+		- (NSArray *)getUsers;
+
+	*Parameters*
+	* none
+
+	*Returns*
+	* An NSArray of NSStrings with all user names
+	* nil if no users were found or an error did occur
+
+
+
+
+		
+* **Add a user to the context model**
+
+	*Parameters*
+	* userName: An NSString containing the user name
+		
+	*Returns*
+	* YES if the user was added successfully;
+	* NO if the user does already exist or an error did occur
+	
+			- (BOOL)addUser:(NSString *)userName;
+
+* **Remove a user from the context model**
+
+	*Parameters*
+	* userName: An NSString containing the user name
+
+	*Returns*
+	* YES if the user was removed successfully
+	* NO if the user was not found an error did occur
+
+			- (BOOL)removeUser:(NSString *)userName;
+
+#### Context management ####
+
+* **Request all global contexts from the context model**
+
+ 	*Parameters*
+	* none
+
+ 	*Returns*
+ 	* An NSDictionary of Context with keys = context types and values = Context objects
+	* nil if no contexts were found or an error did occur
+
+			- (NSDictionary *)getContexts;
 
 Copyright (c) 2010 Felix Mueller, released under the [MIT license](http://github.com/flxmllr/mobile-context-iphone-lib/blob/master/MIT-LICENSE)
